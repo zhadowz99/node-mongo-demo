@@ -8,21 +8,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://krisna:krisna@mongokrisna:27017/sampledb");
-var nameSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String
+var timeSchema = new mongoose.Schema({
+    time: Date,
+    default: Date.now
 });
-var User = mongoose.model("User", nameSchema);
+var User = mongoose.model("User", timeSchema);
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
-});
-
-app.post("/addname", (req, res) => {
-    var myData = new User(req.body);
+    var myData = new User();
     myData.save()
         .then(item => {
-            res.send("Name saved to database");
+            res.send("Save time to database");
         })
         .catch(err => {
             res.status(400).send("Unable to save to database");
