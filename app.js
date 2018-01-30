@@ -9,8 +9,7 @@ var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://krisna:krisna@mongokrisna:27017/sampledb");
 var timeSchema = new mongoose.Schema({
-    time: Date,
-    default: Date.now
+    time: {type: Date, default: Date.now}
 });
 var User = mongoose.model("User", timeSchema);
 
